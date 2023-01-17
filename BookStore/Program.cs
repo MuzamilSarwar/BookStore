@@ -1,3 +1,6 @@
+using Microsoft.Extensions.FileProviders;
+using System.Net.NetworkInformation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -19,6 +22,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+// code for changing file folder to other from wwwroot
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"images")),
+    RequestPath= ("/images")
+});
+// code ends here
 
 app.UseRouting();
 
