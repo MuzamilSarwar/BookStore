@@ -4,24 +4,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
-    public class BookController : Controller
-    {
-        private readonly BookRepository repository;
-        public BookController()
-        {
-            repository = new BookRepository();
-        }
-        public List<BookModel> GetAllBooks()
-        {
-           return repository.GetAllBooks();
-        }
-        public BookModel GetBook(int id) 
-        {
-            return repository.GetBookByID(id);
-        }
-        public List<BookModel> SearchBooks(string BookName, string autherName)
-        {
-            return repository.SearchBook(BookName,autherName);
-        }
-    }
+	public class BookController : Controller
+	{
+		private readonly BookRepository repository;
+		public BookController()
+		{
+			repository = new BookRepository();
+		}
+		public IActionResult GetAllBooks()
+		{
+			var data = repository.GetAllBooks();
+			return View();
+
+		}
+		public BookModel GetBook(int id)
+		{
+			return repository.GetBookByID(id);
+		}
+		public List<BookModel> SearchBooks(string BookName, string autherName)
+		{
+			return repository.SearchBook(BookName, autherName);
+		}
+	}
 }
